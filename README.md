@@ -1,12 +1,11 @@
 # node-xcode-opifex
 
-Modified for the OPengine
-
-Primary change is Xcode 8 project support. (Not all functionality has been added yet, only that which the OPengine required)
-
-> parser/toolkit for xcodeproj project files
-
 Allows you to edit xcodeproject files and write them back out.
+
+> Modified for the OPengine [https://github.com/TeamOPifex/OPengine](https://github.com/TeamOPifex/OPengine)
+> Primary change in this fork is Xcode 8 project support. (Not all functionality has been added yet, only that which the OPengine required)
+
+
 
 ## Example
 
