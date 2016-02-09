@@ -2,7 +2,7 @@
   "author": "Garrett Hoofman <garrett@teamopifex.com>",
   "name": "node-xcode-opifex",
   "description": "parser for xcodeproj/project.pbxproj files modified for the OPengine",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "main": "index.js",
   "repository": {
     "url": "https://github.com/TeamOPifex/node-xcode-opifex.git"
