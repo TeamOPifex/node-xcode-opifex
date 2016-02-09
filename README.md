@@ -1,4 +1,6 @@
-# node-xcode
+# node-xcode-opifex
+
+Modified for the OPengine
 
 > parser/toolkit for xcodeproj project files
 
@@ -17,7 +19,7 @@ Allows you to edit xcodeproject files and write them back out.
         myProj.addHeaderFile('foo.h');
         myProj.addSourceFile('foo.m');
         myProj.addFramework('FooKit.framework');
-        
+
         fs.writeFileSync(projectPath, myProj.writeSync());
         console.log('new project written');
     });
