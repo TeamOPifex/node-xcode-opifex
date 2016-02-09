@@ -2,26 +2,52 @@
 
 Modified for the OPengine
 
+Primary change is Xcode 8 project support. (Not all functionality has been added yet, only that which the OPengine required)
+
 > parser/toolkit for xcodeproj project files
 
 Allows you to edit xcodeproject files and write them back out.
 
 ## Example
 
-    // API is a bit wonky right now
-    var xcode = require('xcode'),
+    var xcode = require('node-xcode-opifex'),
         fs = require('fs'),
-        projectPath = 'myproject.xcodeproj/project.pbxproj',
-        myProj = xcode.project(projectPath);
+        projectSource = 'OPengine.xcodeproj/project.pbxproj',
+        projectPath = 'OPengine.xcodeproj/project.pbxproj',
+        myProj = xcode.project(projectSource);
 
     // parsing is async, in a different process
     myProj.parse(function (err) {
-        myProj.addHeaderFile('foo.h');
-        myProj.addSourceFile('foo.m');
-        myProj.addFramework('FooKit.framework');
+
+    	// If it already exists, nothing happens
+    	myProj.createPbxGroup('OPengine');
+
+    	//myProj.addSourceFileToGroup('foo.m', 'OPengine');
+
+    	myProj.addFrameworkFile('OPengine', 'libCore.a');
+    	myProj.addFrameworkFile('OPengine', 'libData.a');
+    	myProj.addFrameworkFile('OPengine', 'libMath.a');
+    	myProj.addFrameworkFile('OPengine', 'libPerformance.a');
+    	myProj.addFrameworkFile('OPengine', 'libHuman.a');
+    	myProj.addFrameworkFile('OPengine', 'libCommunication.a');
+    	myProj.addFrameworkFile('OPengine', 'libScripting.a');
+    	myProj.addFrameworkFile('OPengine', 'libPipeline.a');
+    	myProj.addFrameworkFile('OPengine', 'libApplication.a');
+
+    	// Clears the defines for all of the Configs in 'teamopifex.OPengine'
+    	myProj.clearConfigDefine('teamopifex.OPengine');
+    	// Clears the defines for only the Debug config
+    	myProj.clearConfigDefine('teamopifex.OPengine', 'Debug');
+
+    	myProj.addConfigDefine('teamopifex.OPengine', 'OPIFEX_IOS');
+    	myProj.addConfigDefine('teamopifex.OPengine', '_DEBUG', 'Debug');
+    	myProj.addConfigDefine('teamopifex.OPengine', 'OPIFEX_RELEASE', 'Release');
+
+    	myProj.clearConfigLibraryPath('teamopifex.OPengine');
+    	myProj.addConfigLibraryPath('teamopifex.OPengine', '/Users/garretthoofman/.opengine/build/opengine_08c61120-44e7-4e5c-996d-88f7ec0875a6_build/Binaries/ios/debug', 'Debug');
+    	myProj.addConfigLibraryPath('teamopifex.OPengine', '/Users/garretthoofman/.opengine/build/opengine_08c61120-44e7-4e5c-996d-88f7ec0875a6_build/Binaries/ios/release', 'Release');
 
         fs.writeFileSync(projectPath, myProj.writeSync());
-        console.log('new project written');
     });
 
 ## Working on the parser
